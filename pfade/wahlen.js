@@ -51,6 +51,7 @@ module.exports = (app)=>{
                                             res.status(500).json(err)
                                         }
                                     else{
+                                        console.log(link)
                                         res.status(200).json({nachrichte : "alles wird erfolgreich elerdigt", url : link.url})
                                     }
                                 })
