@@ -19,7 +19,7 @@ module.exports = (app)=>{
   app.post("/webhook",express.raw({type: 'application/json'}),async (req, res)=>{
     const sig = req.headers['stripe-signature'];
     const body = req.body
-    const e = "whsec_42217db53e44360e2316060fdaf5b4fa8dc894da74ed08d93215e94fd0694c01"
+    const e = "whsec_6tJGlxIeJwkw4ePI8CGxnQ9ozS3UGefh"
     let event 
     try {
         event = stripe.webhooks.constructEvent((body.toString()), sig, e)
