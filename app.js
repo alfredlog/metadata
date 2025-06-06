@@ -1,0 +1,21 @@
+const express = require("express")
+const app = express()
+const cors = require("cors")
+require("dotenv").config()
+const body_parser = require("body-parser")
+const {sync} = require("./datenquelle/db/db")
+
+
+sync()
+app.use(cors())
+app.listen(4242, ()=>{
+    console.log("http://localhost:20000")
+})
+require("./pfade/Bezahlung/webhook")(app)
+app.use(body_parser.json())
+require("./pfade/registierung")(app)
+require("./pfade/anmeldung")(app)
+require("./pfade/Series")(app)
+require("./pfade/ziehung")(app)
+require("./pfade/wahlen")(app)
+require("./pfade/Bezahlung/checkout")(app)
