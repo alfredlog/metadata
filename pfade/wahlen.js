@@ -36,7 +36,7 @@ module.exports = (app)=>{
                             bezahlung : false
                         })
                         .then(()=>{
-                            Series.update({ziffer : (serie.ziffer += `${ziffer}` )}, {where : {codewahl:codewahl}})
+                            Series.update({ziffer : (serie.ziffer += `${ziffer},` )}, {where : {codewahl:codewahl}})
                              .then(()=>{
                                 Wahlen.findAll({where:{codewahl : codewahl}})
                              .then(async(wahlen)=>{

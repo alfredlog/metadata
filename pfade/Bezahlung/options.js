@@ -1,10 +1,10 @@
 
-const option1 = (sold, mail, adresse, artikel, livraison)=>{
+const option1 = (mail,Email,n)=>{
     return {
         from : process.env.MAIL,
         to : mail,
-        subject : "der erhalt der Bezahlung eines Kundens",
-        text : `wir freuen uns, Sie daruber zu Informieren, dass wir Ihre bezahlung von ${sold} fur den Kauf von ${artikel} erfolgreich erhalten haben \nso warten Sie auf die lieferung an Ihre adresse(${adresse}), bediegung der lieferung : \n${livraison || "Kostetlos, zwischen 5 tagen und einer woche"}`,
+        subject : "der erhalt der Bezahlung eines Teilnehmers",
+        text : `der Teilnehmer ${Email} hat bezahlt \n Daher betägt die Anzhl der Teilnehmer, die bezahlt haben ${n} `,
         
     }
 }

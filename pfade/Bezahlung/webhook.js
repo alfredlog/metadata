@@ -1,9 +1,11 @@
 require("dotenv").config()
 const {option1, option2} = require("./options")
+const {option4} = require("../options")
 const stripe = require("stripe")(process.env.PRIVATE_KEY)
 const express = require("express")
 const mailer = require("nodemailer")
-
+const {Wahlen, Series} = require("../../datenquelle/db/db")
+const { errorMonitor } = require("nodemailer/lib/xoauth2")
 const transporter = mailer.createTransport({
     service : "gmail",
     user : "smtp.gmail.com",
@@ -30,13 +32,59 @@ module.exports = (app)=>{
     if(event.type == "checkout.session.completed")
     {
         const kunde = event.data.object.customer_details
-        const mail = kunde.email
-        const Betrag = event.data.object.amount_total
-        const adresse = `${kunde.address.country}, ${kunde.address.city}, ${kunde.address.line1}, Postleitzahl: ${kunde.address.postal_code || ""}`
-        const artikel = event.data.metadata
-        const livraison = event.shipping_options
-        console.log(event.data)
-        res.status(200).json(kunde)
+        const mail = event.data.metadata.mail
+        const codewahl = event.data.metadata.codewahl
+        Wahlen.update({bezahlung : true}, {where: {codewahl: codewahl, Email : mail}})
+         .then(()=>{
+            Wahlen.findAndCountAll({where:{bezahlung : true}})
+             .then((series, c)=>{
+                if(series.count == 20)
+                    {
+                        Series.findOne({where:{codewahl:codewahl}})
+                         .then(serie=>{
+                            var Liste = []
+                            for(i=0; i<series.count; i++)
+                                {
+                                    var w = series.rows[i].wahl.split(",")
+                                    for(j = 0; j < w.length ; j++)
+                                    {
+                                        Liste.push(w[j])
+                                    }
+                                }
+                                console.log(Liste)
+                                var empfänger = serie.Teilnehmer.split(";")
+                                empfänger.push(["alfredmunganga@icloud.com"])
+                                empfänger = empfänger.join(",")
+                                var un = serie.ziffer.split(",").pop()
+                                var HT = option4(codewahl,empfänger,algorithme(Liste, 12),algorithme(un, 1),serie.Teilnehmer)
+                                transporter.sendMail(HT, (err)=>{
+                                    if(err)
+                                        {
+                                            res.status(500).json(err)
+                                        }
+                                    else{
+                                        console.log(event.data)
+                                        res.status(200).json(kunde)
+                                    }
+                                })
+                            
+                         })
+                    }
+                else
+                {
+                    transporter.sendMail(option1("alfredmunganga@icloud.com", mail, series.count), (err)=>{
+                        if(err)
+                        {
+                            res.staus(500).json(err)
+                        }
+                        else{
+                            res.status()
+                        }
+                    })
+
+                }
+             })
+         })
     }
 
 })

@@ -23,7 +23,7 @@ module.exports = (app)=>{
          .then((serie)=>{
             if(serie)
             {
-                Wahlen.findAndCountAll({where:{codewahl:codewahl}})
+                Wahlen.findAndCountAll({where:{codewahl:codewahl, bezahlung:true}})
              .then((series, count)=>{
                 var Liste = []
                 for(i=0; i<series.count; i++)
@@ -38,7 +38,7 @@ module.exports = (app)=>{
                     var empfänger = serie.Teilnehmer.split(";")
                     empfänger.push(["alfredmunganga@icloud.com"])
                     empfänger = empfänger.join(",")
-                    var un = serie.ziffer.split("")
+                    var un = serie.ziffer.split(",").pop()
                     var HT = option5(codewahl, empfänger, algorithme(Liste, 12),algorithme(un, 1), series.count)
                     transporter.sendMail(HT, (err)=>{
                         if(err)

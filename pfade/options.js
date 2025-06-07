@@ -26,12 +26,12 @@ const option3 = (codewahl, mail,Emails, count)=>{
         
     }
 }
-const option4 = (codewahl, mail, Ziffer, num)=>{
+const option4 = (codewahl, mail, Ziffer, num, teilnehmer)=>{
     return {
         from : process.env.MAIL,
         to : mail,
         subject : `Der Lottospiel ist abgeschlossen \n codewahl : ${codewahl}`,
-        text : ` : Alle Teilnemer haben schon Ihre Nummer eingegeben, damit kommen wir zum Ende unseres Spiel die 12 am meisten gewählten nummer sind ${Ziffer} und die am meinsten gewählte nummer ist  ${num} `,
+        text : ` : 20 Teilnemer haben schon Ihre Nummer eingegeben und den Betrag bezahlt, damit kommen wir zum Ende unseres Spiel die 12 am meisten gewählten nummer sind ${Ziffer} und die am meinsten gewählte nummer ist  ${num}\n die teilnehmer sind : ${teilnehmer} `,
         
     }
 }
