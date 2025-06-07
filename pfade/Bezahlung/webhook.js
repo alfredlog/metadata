@@ -38,7 +38,7 @@ module.exports = (app)=>{
         const codewahl = event.data.object.metadata.codewahl
         Wahlen.update({bezahlung : true}, {where: {codewahl: codewahl, Email : mail}})
          .then(()=>{
-            Wahlen.findAndCountAll({where:{bezahlung : true}})
+            Wahlen.findAndCountAll({where:{bezahlung : true, codewahl:codewahl}})
              .then((series, c)=>{
                 if(series.count == 20)
                     {
