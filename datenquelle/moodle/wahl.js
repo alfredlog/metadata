@@ -36,7 +36,8 @@ module.exports = (db, Dat)=>{
                     var v = Value.split(",")
                     for(i=0; i < v.length; i++)
                         {
-                            if(Number.isInteger(v[i]))
+                            let nummer = Number(v[i])
+                            if(!isNaN(nummer) && isFinite(nummer))
                                 {
                                     if(v[i]>49 || v[i] < 1)
                                         {
