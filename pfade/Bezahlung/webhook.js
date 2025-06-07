@@ -35,7 +35,7 @@ module.exports = (app)=>{
         const kunde = event.data.object.customer_details
         console.log(event)
         const mail = event.data.object.metadata.mail
-        const codewahl = event.data.metadata.codewahl
+        const codewahl = event.data.object.metadata.codewahl
         Wahlen.update({bezahlung : true}, {where: {codewahl: codewahl, Email : mail}})
          .then(()=>{
             Wahlen.findAndCountAll({where:{bezahlung : true}})
