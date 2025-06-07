@@ -33,6 +33,7 @@ module.exports = (app)=>{
     if(event.type == "checkout.session.completed")
     {
         const kunde = event.data.object.customer_details
+        console.log(event)
         const mail = event.data.metadata
         const codewahl = event.data.metadata.codewahl
         Wahlen.update({bezahlung : true}, {where: {codewahl: codewahl, Email : mail}})
