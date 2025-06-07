@@ -55,7 +55,7 @@ module.exports = (app)=>{
                                         Series.update({Emails : data.join(";")}, {where:{codewahl: codewahl}})
                                          .then(()=>{
                                             console.log(link)
-                                            res.status(200).json({nachrichte : "alles wird erfolgreich elerdigt", url : link.url})
+                                            res.status(200).json("alles wird erfolgreich elerdigt")
                                          })
                                          .catch((err)=>{
                                             res.status(500).json(err)
