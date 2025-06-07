@@ -56,7 +56,7 @@ module.exports = (app)=>{
                         else
                         {
                             console.log("Teilnehmer ok")
-                            const nachricht = "Der Lottospiel wurd erfolgreich hergestellt"
+                            const nachricht = "Der Lottospiel wurde erfolgreich hergestellt"
                             res.status(200).json(nachricht)
                         }
                     })
