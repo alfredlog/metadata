@@ -26,13 +26,14 @@ module.exports = (app)=>{
     try {
         event = stripe.webhooks.constructEvent((body.toString()), sig, e)
     } catch (error) {
+        console.log("n")
         res.status(400).send(error)
         return
     }
     if(event.type == "checkout.session.completed")
     {
         const kunde = event.data.object.customer_details
-        const mail = event.data.metadata.mail
+        const mail = event.data.metadata
         const codewahl = event.data.metadata.codewahl
         Wahlen.update({bezahlung : true}, {where: {codewahl: codewahl, Email : mail}})
          .then(()=>{
