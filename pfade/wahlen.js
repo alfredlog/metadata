@@ -73,8 +73,8 @@ module.exports = (app)=>{
                         .catch(fehler =>{
                             if(fehler instanceof UniqueConstraintError || ValidationError)
                             {
-                                console.log(fehler)
-                                res.status(400).json(fehler.mesage)
+                                console.log(fehler.message)
+                                res.status(400).json(fehler.message)
                             }
                         })
                     }
