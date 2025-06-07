@@ -20,8 +20,8 @@ module.exports = async(codewahl, mail)=>{
                       }
                     ],
                     mode: 'payment',
-                    success_url:'http://localhost:2000/success.html',
-                    cancel_url:'http://localhost:2000/cancel.html',
+                    success_url:'https://lottobbc.vercel.app/wahl.html/success.html',
+                    cancel_url:'https://lottobbc.vercel.app/wahl.html/cancel.html',
                     metadata : {
                       codewahl : codewahl,
                       mail : mail
