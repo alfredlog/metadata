@@ -36,7 +36,7 @@ module.exports = (db, Dat)=>{
                     var v = Value.split(",")
                     for(i=0; i < v.length; i++)
                         {
-                            if(typeof v[i] === "number" && !isNaN(v[i]))
+                            if(Number.isInteger(v[i]))
                                 {
                                     if(v[i]>49 || v[i] < 1)
                                         {
