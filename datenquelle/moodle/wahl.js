@@ -36,10 +36,20 @@ module.exports = (db, Dat)=>{
                     var v = Value.split(",")
                     for(i=0; i < v.length; i++)
                         {
-                            if(v[i]>49 || v[i] < 1)
+                            if(typeof v[i] === "number" && !isNaN(v[i]))
                                 {
-                                    throw new Error("alle gegebenen nummer muss in dem Intervall von 1 bis 49 sein")
+                                    if(v[i]>49 || v[i] < 1)
+                                        {
+                                            throw new Error("die gegebenen nummer müssen in dem Intervall von 1 bis 49 sein")
+                                        }
+                                    
                                 }
+                            else
+                            {
+                                throw new Error("Du muss nur nummer geben") 
+                            }
+  
+                            
                             
                         }
                     if(v.length !== 6)
