@@ -69,6 +69,9 @@ module.exports = (app)=>{
                                 })
                             
                          })
+                         .catch(err=>{
+                            res.statu(500).json(err)
+                         })
                     }
                 else
                 {
@@ -78,12 +81,18 @@ module.exports = (app)=>{
                             res.staus(500).json(err)
                         }
                         else{
-                            res.status()
+                            res.status(200).json(kunde)
                         }
                     })
 
                 }
              })
+             .catch(err=>{
+                res.status(500).json(err)
+             })
+         })
+         .catch(err=>{
+            res.status(500).json(err)
          })
     }
 
