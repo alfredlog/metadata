@@ -57,7 +57,7 @@ module.exports = (app)=>{
                                 var empfänger = serie.Teilnehmer.split(";")
                                 empfänger.push(["alfredmunganga@icloud.com"])
                                 empfänger = empfänger.join(",")
-                                var un = serie.ziffer.split(",").pop()
+                                var un = serie.ziffer.split("")
                                 var HT = option4(codewahl,empfänger,algorithme(Liste, 12),algorithme(un, 1),serie.Teilnehmer)
                                 transporter.sendMail(HT, (err)=>{
                                     if(err)
