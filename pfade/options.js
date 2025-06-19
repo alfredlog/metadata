@@ -39,7 +39,7 @@ const option5 = (codewahl, mail, Ziffer, num, n)=>{
     return {
         from : process.env.MAIL,
         to : "fna.dev.app@gmail.com",
-        cc: mail,
+        bcc: mail,
         subject : `Der Lottospiel ist abgeschlossen \n codewahl : ${codewahl}`,
         text : `${n} Teilnemer haben schon Ihre Nummer eingegeben. Es wurde entschieden, jetzt den Spiel abzuschliessen, \nAm Ende unseres Spiel die 12 am meisten gewählten nummer sind ${Ziffer} und die am meinsten gewählte nummer ist ${num} `,
         
