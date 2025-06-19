@@ -5,10 +5,11 @@ const mailer = require("nodemailer")
 const {option1, option2} = require("./options")
 
 const transporter = mailer.createTransport({
+    pool: true,
     service : "gmail",
     user : "smtp.gmail.com",
-    port : 587,
-    secure : false,
+    port : 465,
+    secure : true,
     auth:
     {
         user: process.env.MAIL,
