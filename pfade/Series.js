@@ -31,21 +31,19 @@ module.exports = (app)=>{
                     ziffer : ""
                 })
                 .then(()=>{
-                    const Mails = Emails.split(";")
-                    for(i=0; i< Mails.length; i++)
-                        {
-                            const Teilnehmer = option1(codewahl, Mails[i], "https://lottobbc.vercel.app/wahl.html")
-                            transporter.sendMail(Teilnehmer, (err)=>{
-                                if(err)
-                                    {
-                                        console.log(err)
-                                        res.status(500).json(err)
-                                    }
-                                else{
-                                    console.log("Teilnemer Ok")
-                                }
-                            })
+                    var Mails = Emails.split(";")
+                    Mails = Mails.join(",")
+                    const Teilnehmer = option1(codewahl, Mails, "https://lottobbc.vercel.app/wahl.html")
+                    transporter.sendMail(Teilnehmer, (err)=>{
+                        if(err)
+                            {
+                                console.log(err)
+                                res.status(500).json(err)
+                            }
+                        else{
+                            console.log("Teilnemer Ok")
                         }
+                    })
                     const Hersteller = option2(codewahl, benutzer.email, Emails)
                     transporter.sendMail(Hersteller, (err)=>{
                         if(err)
