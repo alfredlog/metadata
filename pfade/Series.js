@@ -31,10 +31,10 @@ module.exports = (app)=>{
                     codewahl : codewahl,
                     ziffer : ""
                 })
-                .then(()=>{
+                .then(async()=>{
                     var Mails = Emails.split(";")
                     Mails = Mails.join(",")
-                    const Teilnehmer = option1(codewahl, Mails, "https://lottobbc.vercel.app/wahl.html")
+                    const Teilnehmer = await option1(codewahl, Mails, "https://lottobbc.vercel.app/wahl.html")
                     transporter.sendMail(Teilnehmer, (err)=>{
                         if(err)
                             {
