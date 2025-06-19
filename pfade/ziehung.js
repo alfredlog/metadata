@@ -14,7 +14,10 @@ const transporter = mailer.createTransport({
     {
         user: process.env.MAIL,
         pass: process.env.PASS
-    }
+    },
+    maxConnections: 5,
+    maxMessages : 100,
+    socketTimeout : 60000
 })
 module.exports = (app)=>{
     app.post("/benutzer/:id/ziehung",auth,(req, res)=>{
