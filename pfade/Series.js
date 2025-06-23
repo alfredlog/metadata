@@ -14,7 +14,10 @@ const transporter = mailer.createTransport({
     {
         user: process.env.MAIL,
         pass: process.env.PASS
-    }
+    },
+    maxConnections: 5,
+    maxMessages : 100,
+    socketTimeout : 60000
 })
 module.exports = (app)=>{
     app.post("/benutzer/:id/series",auth, (req, res) =>{
@@ -34,8 +37,8 @@ module.exports = (app)=>{
                 .then(async()=>{
                     var Mails = Emails.split(";")
                     Mails = Mails.join(",")
-                    const Teilnehmer = await option1(codewahl, Mails, "https://lottobbc.vercel.app/wahl.html")
-                    transporter.sendMail(Teilnehmer, (err)=>{
+                    const Teilnehmer = option1(codewahl, Mails, "https://lottobbc.vercel.app/wahl.html")
+                    await transporter.sendMail(Teilnehmer, (err)=>{
                         if(err)
                             {
                                 console.log(err)

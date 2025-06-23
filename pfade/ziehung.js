@@ -6,10 +6,11 @@ const algorithme = require("./algorithme")
 const mailer = require("nodemailer")
 require("dotenv").config()
 const transporter = mailer.createTransport({
+    pool: true,
     service : "gmail",
     user : "smtp.gmail.com",
-    port : 587,
-    secure : false,
+    port : 465,
+    secure : true,
     auth:
     {
         user: process.env.MAIL,
@@ -27,7 +28,7 @@ module.exports = (app)=>{
             if(serie)
             {
                 Wahlen.findAndCountAll({where:{codewahl:codewahl, bezahlung:true}})
-             .then((series, count)=>{
+             .then(async(series, count)=>{
                 var Liste = []
                 for(i=0; i<series.count; i++)
                     {
@@ -43,7 +44,7 @@ module.exports = (app)=>{
                     empfänger = empfänger.join(",")
                     var un = serie.ziffer.split("")
                     var HT = option5(codewahl, empfänger, algorithme(Liste, 12),algorithme(un, 1), series.count)
-                    transporter.sendMail(HT, (err)=>{
+                    await transporter.sendMail(HT, (err)=>{
                         if(err)
                             {
                                 console.log(err)
