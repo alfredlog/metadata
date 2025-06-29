@@ -27,6 +27,7 @@ module.exports = (app)=>{
          .then(serie =>{
             if(serie)
                 {
+                    var b = true
                     var Mail = Emails.split(";")
                     console.log(Mail.length)
                     for(i=0; i < Mail.length; i++)
@@ -35,45 +36,49 @@ module.exports = (app)=>{
                             console.log(Liste)
                             if(Liste.includes(Mail[i]))
                                 {
-
+                                    b = false
                                     console.log("ddd")
                                     res.status(404).json({nachricht:`der Teilnehmer ${Mail[i]} existiert schon `})
                                 }
                         }
-                    Series.update({Emails :(serie.Emails += `;${Emails}`), Teilnehmer : (serie.Teilnehmer += `;${Emails}`) }, {where:{codewahl:codewahl}})
-                     .then(async()=>{
-                        var Mails = Emails.split(";")
-                        Mails = Mails.join(",")
-                        const Teilnehmer = option1(codewahl, Mails, "https://lottobbc.vercel.app/wahl.html")
-                        await transporter.sendMail(Teilnehmer, (err)=>{
-                        if(err)
-                            {
-                                console.log(err)
-                                res.status(500).json(err)
-                            }
-                        else{
-                            console.log("Teilnemer Ok")
-                        }
-                        })
-                        const Hersteller = optionA(codewahl, "alfredmunganga@icloud.com", Emails)
-                        transporter.sendMail(Hersteller, (err)=>{
-                        if(err)
-                            {
-                                console.log(err)
-                                res.status(500).json(err)
-                            }
-                        else
+                    if(b)
                         {
-                            console.log("Teilnehmer ok")
-                            const nachricht = "Der Lottospiel wurde erfolgreich aktualiesiert"
-                            res.status(200).json(nachricht)
+                            Series.update({Emails :(serie.Emails += `;${Emails}`), Teilnehmer : (serie.Teilnehmer += `;${Emails}`) }, {where:{codewahl:codewahl}})
+                            .then(async()=>{
+                               var Mails = Emails.split(";")
+                               Mails = Mails.join(",")
+                               const Teilnehmer = option1(codewahl, Mails, "https://lottobbc.vercel.app/wahl.html")
+                               await transporter.sendMail(Teilnehmer, (err)=>{
+                               if(err)
+                                   {
+                                       console.log(err)
+                                       res.status(500).json(err)
+                                   }
+                               else{
+                                   console.log("Teilnemer Ok")
+                               }
+                               })
+                               const Hersteller = optionA(codewahl, "alfredmunganga@icloud.com", Emails)
+                               transporter.sendMail(Hersteller, (err)=>{
+                               if(err)
+                                   {
+                                       console.log(err)
+                                       res.status(500).json(err)
+                                   }
+                               else
+                               {
+                                   console.log("Teilnehmer ok")
+                                   const nachricht = "Der Lottospiel wurde erfolgreich aktualiesiert"
+                                   res.status(200).json(nachricht)
+                               }
+                                })
+                            })
+                            .catch((error)=>{
+                               console.log(error)
+                               res.status(500).json(error)
+                            })
                         }
-                         })
-                     })
-                     .catch((error)=>{
-                        console.log(error)
-                        res.status(500).json(error)
-                     })
+
                 }
             else
             {
