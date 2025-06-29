@@ -27,6 +27,19 @@ module.exports = (app)=>{
          .then(serie =>{
             if(serie)
                 {
+                    var Mail = Emails.split(";")
+                    console.log(Mail.length)
+                    for(i=0; i < Mail.length; i++)
+                        {
+                            var Liste = serie.Teilnehmer.split(";")
+                            console.log(Liste)
+                            if(Liste.includes(Mail[i]))
+                                {
+
+                                    console.log("ddd")
+                                    res.status(404).json(`der Teilnehmer ${Mail[i]} existiert schon `)
+                                }
+                        }
                     Series.update({Emails :(serie.Emails += `;${Emails}`), Teilnehmer : (serie.Teilnehmer += `;${Emails}`) }, {where:{codewahl:codewahl}})
                      .then(async()=>{
                         var Mails = Emails.split(";")
@@ -68,6 +81,7 @@ module.exports = (app)=>{
             }
          })
          .catch((error)=>{
+            console.log(error)
             res.status(500).json(error)
          })
     })
