@@ -38,7 +38,8 @@ module.exports = (app)=>{
                                 {
                                     b = false
                                     console.log("ddd")
-                                    res.status(404).json({nachricht:`der Teilnehmer ${Mail[i]} existiert schon `})
+                                    const nachricht = `der Teilnehmer ${Mail[i]} existiert schon `
+                                    res.status(404).json(nachricht)
                                 }
                         }
                     if(b)
