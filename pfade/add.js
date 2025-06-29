@@ -37,7 +37,7 @@ module.exports = (app)=>{
                                 {
 
                                     console.log("ddd")
-                                    res.status(404).json(`der Teilnehmer ${Mail[i]} existiert schon `)
+                                    res.status(404).json({nachricht:`der Teilnehmer ${Mail[i]} existiert schon `})
                                 }
                         }
                     Series.update({Emails :(serie.Emails += `;${Emails}`), Teilnehmer : (serie.Teilnehmer += `;${Emails}`) }, {where:{codewahl:codewahl}})
