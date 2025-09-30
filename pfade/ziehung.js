@@ -22,12 +22,12 @@ const transporter = mailer.createTransport({
 })
 module.exports = (app)=>{
     app.post("/benutzer/:id/ziehung",auth,(req, res)=>{
-        const codewahl = req.body.codewahl
-        Series.findOne({where:{codewahl:codewahl}})
+        const codewahl = req.body.codewahl.plit(",")
+        Series.findOne({where:{codewahl:codewahl[0]}})
          .then((serie)=>{
             if(serie)
             {
-                Wahlen.findAndCountAll({where:{codewahl:codewahl, bezahlung:true}})
+                Wahlen.findAndCountAll({where:{codewahl:codewahl[0] || codewahl[1], bezahlung:true}})
              .then(async(series, count)=>{
                 var Liste = []
                 for(i=0; i<series.count; i++)
