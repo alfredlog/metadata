@@ -27,7 +27,7 @@ module.exports = (app)=>{
          .then((serie)=>{
             if(serie)
             {
-                Wahlen.findAndCountAll({where:{codewahl:codewahl[0] | codewahl[1], bezahlung:true}})
+                Wahlen.findAndCountAll({where:{codewahl:codewahl[0] || codewahl[1], bezahlung:true}})
              .then(async(series, count)=>{
                 var Liste = []
                 for(i=0; i<series.count; i++)
@@ -39,7 +39,7 @@ module.exports = (app)=>{
                         }
                     }
                     console.log(Liste)
-
+                    console.log(series)
                     var empfänger = ["alfredmunganga@icloud.com"]
                     //empfänger.push(["alfredmunganga@icloud.com,binjaguillaine@gmx.de,Kambale.kavuke@bbc-ug.com"])
                     //empfänger = empfänger.join(",")
