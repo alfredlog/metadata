@@ -39,7 +39,7 @@ module.exports = (app)=>{
                         }
                     }
                     console.log(Liste)
-                    var empfänger = serie.Teilnehmer.split(";")
+                    var empfänger = []
                     empfänger.push(["alfredmunganga@icloud.com"])
                     empfänger = empfänger.join(",")
                     var un = serie.ziffer.split("")
