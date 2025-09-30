@@ -1,4 +1,4 @@
-const { UniqueConstraintError, ValidationError } = require("sequelize")
+const { UniqueConstraintError, ValidationError, Op } = require("sequelize")
 const auth = require("../auth/auth")
 const {Series, Wahlen} = require("../datenquelle/db/db")
 const { option5 } = require("./options")
@@ -24,11 +24,11 @@ module.exports = (app)=>{
     app.post("/benutzer/:id/ziehung",auth,(req, res)=>{
         const codewahl = req.body.codewahl.split(",")
         
-        Series.findOne({where:{codewahl: {[Op.or]: [codewahl[1], codewahl[0]]}}})
+        Series.findOne({where:{codewahl: codewahl}})
          .then((serie)=>{
             if(serie)
             {
-                Wahlen.findAndCountAll({where:{codewahl:codewahl[0] || codewahl[1], bezahlung:true}})
+                Wahlen.findAndCountAll({where:{codewahl: {[Op.or]: [codewahl[0], codewahl[1]]}, bezahlung:true}})
              .then(async(series, count)=>{
                 var Liste = []
                 for(i=0; i<series.count; i++)
