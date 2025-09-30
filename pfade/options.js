@@ -49,7 +49,7 @@ const option5 = (codewahl, mail, Ziffer, num, n)=>{
         from : process.env.MAIL,
         to : mail,
         subject : `Der Lottospiel ist abgeschlossen \n codewahl : ${codewahl}`,
-        text : `${n} Teilnemer haben schon Ihre Zahlen eingegeben. Es wurde entschieden, jetzt den Spiel abzuschliessen, \nAm Ende unseres Spiel die 12 am meisten gewählten Zahlen sind ${Ziffer} und die am meinsten gewählte Superzahl ist ${num} `,
+        text : `${n} Teilnemer haben schon Ihre Zahlen eingegeben. Es wurde entschieden, jetzt den Spieles abzuschliessen, \nAm Ende unseres Spiel die 12 am meisten gewählten Zahlen sind ${Ziffer} und die am meinsten gewählte Superzahl ist ${num} `,
         
     }
 }
