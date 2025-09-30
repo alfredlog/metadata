@@ -40,9 +40,9 @@ module.exports = (app)=>{
                     }
                     console.log(Liste)
 
-                    var empfänger = []
-                    empfänger.push(["alfredmunganga@icloud.com,binjaguillaine@gmx.de,Kambale.kavuke@bbc-ug.com"])
-                    empfänger = empfänger.join(",")
+                    var empfänger = ["alfredmunganga@icloud.com"]
+                    //empfänger.push(["alfredmunganga@icloud.com,binjaguillaine@gmx.de,Kambale.kavuke@bbc-ug.com"])
+                    //empfänger = empfänger.join(",")
                     var un = serie.ziffer.split("")
                     var HT = option5(codewahl, empfänger, algorithme(Liste, 12),algorithme(un, 1), series.count)
                     await transporter.sendMail(HT, (err)=>{
